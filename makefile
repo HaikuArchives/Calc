@@ -87,5 +87,5 @@ DEBUGGER =
 
 
 ## include the makefile-engine
-include /boot/develop/etc/makefile-engine
+include $(BUILDHOME)/etc/makefile-engine
 
