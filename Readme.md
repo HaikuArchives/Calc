@@ -8,9 +8,9 @@ This is a very simple scientific calculator meant as an experiment and learning 
 
 Since you are reading this document, I'll assume you have already finished installing!  The Calculator is a stand-alone application that can be launched and enjoyed right out of the box.
 
-## How to use:
+## How to use
 
-I will assume you are already familiar with handheld calculators, so I'll omit with the really basic stuff.  Just lanch the application and use it.  However, here are a few subtle points:
+I assume that you are already familiar with handheld calculators, so I'll omit the really basic stuff.  Just launch the application and use it.  However, there are a few subtle points:
 
 The **inv** button is a modifier that gives the _inverse trig functions_.  Click the **inv** button followed by one of the three trig buttons (**sin** **cos** **tan**).  The inverse feature resets itself after each single use.
 
