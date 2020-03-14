@@ -1,6 +1,4 @@
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
-#include <iostream.h>
-
 #include "Calculator.h"
 #include "CalcWindow.h"
 #include "CalcView.h"

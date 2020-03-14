@@ -1,5 +1,4 @@
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
-#include <iostream.h>
 #include <ctype.h>
 #include <string.h>
 
