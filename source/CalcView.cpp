@@ -387,22 +387,8 @@ void CalcView::KeyDown(const char *bytes, int32 numBytes)
 
 		if (button != NULL)
 		{
-			button->SetValue(1);
-			snooze(100000);
-			button->SetValue(0);
-			snooze(20000);
-
-			//BMessage msg = button->Message();
-
-			//SendKeystroke(msg.what);
-
-
-
-
-		}
-		else
-		{
-			;
+			BMessage *msg = button->Message();
+			SendKeystroke(msg->what);
 		}
 	}
 
