@@ -36,12 +36,14 @@ public:
 	static BArchivable* Instantiate(BMessage *msg);
 
 
+	BButton*		GetButtonForKey(const char key);
 
 	virtual	void	AttachedToWindow();
 	virtual	void	AllAttached();
 
 	virtual void	Draw(BRect updateRect);
 	virtual void	KeyDown(const char *bytes, int32 numBytes);
+	virtual void	KeyUp(const char *bytes, int32 numBytes);
 	virtual	void	MouseDown(BPoint where);
 	virtual void	WindowActivated(bool state);
 	virtual	void	MakeFocus(bool focusState = true);
