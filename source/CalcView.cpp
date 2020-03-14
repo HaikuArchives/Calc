@@ -322,76 +322,90 @@ void CalcView::AttachedToWindow()
 
 }
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
+BButton *CalcView::GetButtonForKey(const char key)
+{
+	BButton *button = NULL;
+	switch (key)
+	{
+		case '¸':
+		case '¹':
+		case 'p':
+		case 'P':
+			button = (BButton *)FindView("pi");
+			break;
+		case 'C':
+		case 'c':
+			button = (BButton *)FindView("clr");
+			break;
+		case 'e':
+		case 'E':
+			button = (BButton *)FindView("exp");
+			break;
+		case '`':
+			button = (BButton *)FindView("-/+");
+			break;
+		case '(':
+		case ')':
+		case '0':
+		case '1':
+		case '2':
+		case '3':
+		case '4':
+		case '5':
+		case '6':
+		case '7':
+		case '8':
+		case '9':
+		case '=':
+		case '/':
+		case '*':
+		case '-':
+		case '+':
+		case '.':
+		case '^':
+		case '!':
+			char name[2];
+			name[0] = key;
+			name[1] = '\0';
+			button = (BButton *)FindView(name);
+			break;
+		case 10:
+			button = (BButton *)FindView("entr");
+			break;
+		case 127:
+			button = (BButton *)FindView(".");
+			break;
+		default:
+			button = NULL;
+			break;
+	}
+	return button;
+}
+/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 void CalcView::KeyDown(const char *bytes, int32 numBytes)
 {
 	for (int i=0; i<numBytes; i++)
 	{
-		char key = bytes[i];
-		BButton *button = NULL;
-
-		switch (key)
+		BButton *button = GetButtonForKey(bytes[i]);
+		if (button != NULL)
 		{
-			case '¸':
-			case '¹':
-			case 'p':
-			case 'P':
-				button = (BButton *)FindView("pi");
-				break;
-			case 'C':
-			case 'c':
-				button = (BButton *)FindView("clr");
-				break;
-			case 'e':
-			case 'E':
-				button = (BButton *)FindView("exp");
-				break;
-			case '`':
-				button = (BButton *)FindView("-/+");
-				break;
-			case '(':
-			case ')':
-			case '0':
-			case '1':
-			case '2':
-			case '3':
-			case '4':
-			case '5':
-			case '6':
-			case '7':
-			case '8':
-			case '9':
-			case '=':
-			case '/':
-			case '*':
-			case '-':
-			case '+':
-			case '.':
-			case '^':
-			case '!':
-				char name[2];
-				if (isalpha(key)) key = tolower(key);
-				name[0] = key;
-				name[1] = '\0';
-				button = (BButton *)FindView(name);
-				break;
-			case 10:
-				button = (BButton *)FindView("entr");
-				break;
-			case 127:
-				button = (BButton *)FindView(".");
-				break;
-			default:
-				button = button;
-				break;
+			button->SetValue(B_CONTROL_ON);
 		}
-
+	}
+}
+/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
+void CalcView::KeyUp(const char *bytes, int32 numBytes)
+{
+	for (int i=0; i<numBytes; i++)
+	{
+		BButton *button = GetButtonForKey(bytes[i]);
 		if (button != NULL)
 		{
 			BMessage *msg = button->Message();
 			SendKeystroke(msg->what);
+			button->SetValue(B_CONTROL_OFF);
 		}
 	}
-
 }
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 static void DoubleToBinary(double *dPtr, char *str)
@@ -518,7 +532,7 @@ void CalcView::MessageReceived(BMessage *message)
 					status_t status = clipper->FindData("text/plain", 'MIME', &data, &sz);
 					if (status == B_OK && data!=NULL)
 					{
-						KeyDown((const char *)data, (int32)sz);
+						KeyUp((const char *)data, (int32)sz);
 					}
 /*
 					// What the heck was on the clipboard !??!
